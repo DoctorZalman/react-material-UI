@@ -1,8 +1,10 @@
 import React from "react";
-import {IconButton, Toolbar, Container, AppBar, Typography, Button, Box, CardContent, Paper, Grid, Card, CardMedia, CardActions} from '@mui/material'
-import {Menu} from "@mui/icons-material";
+import {
+    IconButton, Toolbar, Container, AppBar, Typography, Button, Box, CardContent, Paper, Grid, Card, CardMedia,
+    CardActions, BottomNavigation, BottomNavigationAction
+} from '@mui/material'
+import {Menu, Restore, Favorite, LocationOn, Folder} from "@mui/icons-material";
 import {makeStyles} from '@mui/styles';
-
 import ApiIcon from '@mui/icons-material/Api';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 
@@ -37,7 +39,7 @@ const useStyles = makeStyles(() => ({
         marginBottom: 25
     },
     mainButtonsContainer: {
-      justifyContent: "center"
+        justifyContent: "center"
     },
     mainFeaturesPostContent: {
         position: 'relative',
@@ -60,6 +62,10 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 function App() {
     const classes = useStyles();
+    const [value, setValue] = React.useState('recents')
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
     return (
         <>
             <AppBar position='fixed'>
@@ -142,7 +148,7 @@ function App() {
                                     <CardActions>
                                         <Button size='small' color='primary'>View</Button>
                                         <Button size='small' color='primary'>Edit</Button>
-                                        <ApiIcon />
+                                        <ApiIcon/>
                                         <ArrowCircleRightIcon/>
 
                                     </CardActions>
@@ -152,6 +158,43 @@ function App() {
                     </Grid>
                 </Container>
             </main>
+            <footer>
+                <Typography variant='h6' align='center'>Footer</Typography>
+                <BottomNavigation
+                    value={value}
+                    onChange={handleChange}
+                    className={classes.root}
+                >
+                    <BottomNavigationAction
+                        label="Restore"
+                        value='restore'
+                        icon={<Restore/>}
+                    />
+                    <BottomNavigationAction
+                        label="Favorite"
+                        value='favorite'
+                        icon={<Favorite/>}
+                    />
+                    <BottomNavigationAction
+                        label="Nearby"
+                        value='nearby'
+                        icon={<LocationOn/>}
+                    />
+                    <BottomNavigationAction
+                        label="Folder"
+                        value='folder'
+                        icon={<Folder/>}
+                    />
+                </BottomNavigation>
+                <Typography
+                    align='center'
+                    color='textSecondary'
+                    component='p'
+                    variant='subtitle1'
+                >
+                    React JS Material Ui Site
+                </Typography>
+            </footer>
         </>
     );
 }
