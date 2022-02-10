@@ -7,11 +7,19 @@ import {Menu, Restore, Favorite, LocationOn, Folder} from "@mui/icons-material";
 import {makeStyles} from '@mui/styles';
 import ApiIcon from '@mui/icons-material/Api';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import TextField from "@mui/material/TextField";
+import DialogActions from "@mui/material/DialogActions";
 
 
 const useStyles = makeStyles(() => ({
     root: {
-        flexGrow: 1
+        flexGrow: 1,
+        marginBottom: 5,
+        marginTop: 5
     },
     menuButton: {
         marginRight: 1
@@ -66,7 +74,14 @@ function App() {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-    return (
+    const [open, setOpen] = React.useState(false);
+    const handleClickOpen = () => {
+        setOpen(true)
+    }
+    const handleClose = () => {
+        setOpen(false)
+    }
+     return (
         <>
             <AppBar position='fixed'>
                 <Container fixed>
@@ -78,7 +93,31 @@ function App() {
                             Material UI
                         </Typography>
                         <Box mr={3}>
-                            <Button color='inherit' variant='outlined'>Log In</Button>
+                            <Button color='inherit' variant='outlined' onClick={handleClickOpen}>Log In</Button>
+                            <Dialog open={open} onClose={handleClose} aria-labelledby='form-dialog-title'>
+                                <DialogTitle id='form-dialog-title'>Log In</DialogTitle>
+                                <DialogContent>
+                                    <DialogContentText>Log in to see videos</DialogContentText>
+                                    <TextField autoFocus
+                                               margin='dense'
+                                               id='name'
+                                               label='Email Adress'
+                                               type='email'
+                                               fullWidth>
+                                    </TextField>
+                                    <TextField
+                                               margin='dense'
+                                               id='pass'
+                                               label='Password'
+                                               type='password'
+                                               fullWidth>
+                                    </TextField>
+                                </DialogContent>
+                                <DialogActions>
+                                    <Button onClick={handleClose} color='primary'>Cancel</Button>
+                                    <Button onClick={handleClose} color='primary'>Log In</Button>
+                                </DialogActions>
+                            </Dialog>
                         </Box>
                         <Button color='secondary' variant='contained'>Sing up</Button>
                     </Toolbar>
@@ -108,7 +147,7 @@ function App() {
                         </Grid>
                     </Container>
                 </Paper>
-                <div className={classes.mainContant}>
+                <div>
                     <Container maxWidth='md'>
                         <Typography variant='h2' align='center' color='Primary' gutterBottom>Developer</Typography>
                         <Typography variant='h5' align='center' color='textSecondary' paragraph>Lorem ipsum dolor sit
@@ -159,7 +198,7 @@ function App() {
                 </Container>
             </main>
             <footer>
-                <Typography variant='h6' align='center'>Footer</Typography>
+                <Typography variant='h6' align='center'></Typography>
                 <BottomNavigation
                     value={value}
                     onChange={handleChange}
